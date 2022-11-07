@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = goingLeft;
         }
 
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if (Input.GetKey(KeyCode.UpArrow) && grounded)
             Jump();
     }
 
