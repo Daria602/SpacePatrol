@@ -33,6 +33,9 @@ ExportedObj/
 *.sln
 *.suo
 *.tmp
+
+# UserSettings folder
+UserSettings/
 *.user
 *.userprefs
 *.pidb
