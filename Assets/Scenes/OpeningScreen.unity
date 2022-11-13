@@ -611,6 +611,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yStart: 0
   yDifference: 0
+  toSubstract: 0
+  continueText: {fileID: 1856312501}
 --- !u!1 &1856312499
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,5 +761,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c03070ce9a36248a6698c2db503a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 0}
-  text: {fileID: 0}
