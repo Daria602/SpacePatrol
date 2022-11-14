@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class PlayerTwoController : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
-    [SerializeField] private float speed;
+    [SerializeField] private float runningSpeed;
+    [SerializeField] private float jumpingSpeed;
     [SerializeField] private float groundDistance;
 
     //The layers that are considered to be ground
@@ -39,7 +40,7 @@ public class PlayerTwoController : MonoBehaviour
         bool shouldJump = Input.GetButtonDown("Jump_Two");
 
         // direction going
-        _rigidbody.velocity = new Vector2(horizontalInput * speed, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, _rigidbody.velocity.y);
 
         FacingRight = horizontalInput >= 0 ? true : false;
 
@@ -86,7 +87,7 @@ public class PlayerTwoController : MonoBehaviour
 
     private void Jump()
     {
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, speed * (IsUpsideDown ? -1 : 1));
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpingSpeed * (IsUpsideDown ? -1 : 1));
     }
 
     /*
