@@ -154,7 +154,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2121882917}
-  m_RootOrder: -1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &505509396
 TilemapRenderer:
@@ -1968,6 +1968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208b60462bc021745b2e0dd8934ba4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 852396205}
   runningSpeed: 4
   jumpingSpeed: 7
   groundDistance: 1
@@ -2008,7 +2009,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2121882917}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &995620532
 TilemapRenderer:
@@ -2815,8 +2816,6 @@ CompositeCollider2D:
       - {x: -2.9062393, y: -2.53125}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 995620530}
 --- !u!50 &995620535
 Rigidbody2D:
   serializedVersion: 4
@@ -2854,7 +2853,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
 --- !u!1 &1045008267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2885,7 +2883,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2121882917}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1045008269
 SpriteRenderer:
@@ -3106,6 +3104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce306b0b2cf67742b51fb02e74fced3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1304968811}
   runningSpeed: 4
   jumpingSpeed: 7
   groundDistance: 1

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerOneController : MonoBehaviour
 {
+    public Animator animator;
+
     private Rigidbody2D _rigidbody;
     [SerializeField] private float runningSpeed;
     [SerializeField] private float jumpingSpeed;
@@ -41,6 +43,8 @@ public class PlayerOneController : MonoBehaviour
 
         // direction going
         _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, _rigidbody.velocity.y);
+        animator.SetBool("isRunning", (_rigidbody.velocity.x == 0) ? false : true);
+
 
         FacingRight = horizontalInput >= 0 ? true : false;
 
@@ -51,9 +55,14 @@ public class PlayerOneController : MonoBehaviour
        if (shouldJump && _isGrounded)
         Jump();
 
-       //For debug 
-       ///if u press tab it will change the gravity
-       if(Input.GetKeyDown(KeyCode.Tab))
+        if (_isGrounded)
+            animator.SetBool("isJumping", false);
+        else
+            animator.SetBool("isJumping", true);
+
+        //For debug 
+        ///if u press tab it will change the gravity
+        if (Input.GetKeyDown(KeyCode.Tab))
        {
             IsUpsideDown = !IsUpsideDown;
        }
