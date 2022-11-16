@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BackgroundController : MonoBehaviour
 {
     public float yStart;
     public float yDifference;
     public float toSubstract; // used to move background 
+    public bool isUp = false;
 
     [SerializeField] private TextMeshProUGUI continueText;
 
@@ -27,6 +29,10 @@ public class BackgroundController : MonoBehaviour
     void Update()
     {
         VerticalMovement();
+        if(isUp == true && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SceneManager.LoadScene("Level_1");
+        }
     }
 
     private void VerticalMovement()
@@ -52,6 +58,7 @@ public class BackgroundController : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+        isUp = true;
         yield break;
     }
 
