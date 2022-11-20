@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class BackgroundController : MonoBehaviour
 {
-    public float yStart;
-    public float yDifference;
-    public float toSubstract; // used to move background 
-    public bool isUp = false;
+    private float yStart;
+    private float yDifference;
+    private bool isUp = false;
+    private bool movingWasSpeedUp = false;
 
+    [SerializeField] public string sceneToChangeTo;
+    [SerializeField] public float movingSpeed;
     [SerializeField] private TextMeshProUGUI continueText;
 
     private bool hasContinueTextTransitionStarted = false;
@@ -20,7 +22,6 @@ public class BackgroundController : MonoBehaviour
     {
         yStart = transform.localPosition.y;
         yDifference = 222;
-        toSubstract = 0.2f;
 
         hideContinueText();
     }
@@ -29,9 +30,14 @@ public class BackgroundController : MonoBehaviour
     void Update()
     {
         VerticalMovement();
-        if(isUp == true && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!movingWasSpeedUp && !isUp && Input.anyKeyDown)
         {
-            SceneManager.LoadScene("Level_1");
+            movingSpeed += 0.5f;
+            movingWasSpeedUp = true;
+        }
+        if(isUp == true && Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(sceneToChangeTo);
         }
     }
 
@@ -39,9 +45,9 @@ public class BackgroundController : MonoBehaviour
     {
         float yCurrent = transform.localPosition.y;
         
-        if (yCurrent - toSubstract > yStart - yDifference)
+        if (yCurrent - movingSpeed > yStart - yDifference)
         {
-            transform.localPosition = new Vector2(transform.localPosition.x, yCurrent - toSubstract);
+            transform.localPosition = new Vector2(transform.localPosition.x, yCurrent - movingSpeed);
         } else if (!hasContinueTextTransitionStarted) {
             hasContinueTextTransitionStarted = true;
             showContinueText();
