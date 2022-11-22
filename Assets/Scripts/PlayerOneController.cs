@@ -62,7 +62,7 @@ public class PlayerOneController : MonoBehaviour
 
         //For debug 
         ///if u press tab it will change the gravity
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.RightControl))
        {
             IsUpsideDown = !IsUpsideDown;
        }

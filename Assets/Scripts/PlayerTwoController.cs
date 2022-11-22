@@ -58,14 +58,6 @@ public class PlayerTwoController : MonoBehaviour
             animator.SetBool("isJumping", false);
         else
             animator.SetBool("isJumping", true);
-
-
-        //For debug 
-        ///if u press tab it will change the gravity
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            IsUpsideDown = !IsUpsideDown;
-        }
     }
 
     //function for changing the gravity
