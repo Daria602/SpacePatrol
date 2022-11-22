@@ -1832,7 +1832,7 @@ Animator:
   m_GameObject: {fileID: 852396204}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aa401db44c8aa594a93f0fb7e618f5f8, type: 2}
+  m_Controller: {fileID: 9100000, guid: c05e99b47d48ef942b0f577e1c18b91a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1930,7 +1930,7 @@ SpriteRenderer:
   m_SortingLayerID: -2029359257
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1163853185, guid: 8a3018b4505a4a7409fda5dd1b7ca49a, type: 3}
+  m_Sprite: {fileID: 586341704, guid: 4850983bae9a61e4c859bf27c8953ca1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2816,6 +2816,8 @@ CompositeCollider2D:
       - {x: -2.9062393, y: -2.53125}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 995620530}
 --- !u!50 &995620535
 Rigidbody2D:
   serializedVersion: 4
@@ -2853,6 +2855,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1045008267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2999,7 +3002,7 @@ SpriteRenderer:
   m_SortingLayerID: -2029359257
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1163853185, guid: 8a3018b4505a4a7409fda5dd1b7ca49a, type: 3}
+  m_Sprite: {fileID: -751141699, guid: b92671e2528b6ae4f85e60657268459b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
