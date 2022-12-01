@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
 
         hit = Physics2D.Raycast(transform.position, Vector2.down*(IsUpsideDown ? -1 : 1), groundDistance, groudMask);
         _isGrounded = hit.collider != null;
-      // Debug.Log(hit.collider);
 
        if (shouldJump && _isGrounded)
         Jump();
@@ -93,10 +92,10 @@ public class PlayerController : MonoBehaviour
 
         //For debug 
         ///if u press tab it will change the gravity
-        if (Input.GetKeyDown(KeyCode.RightControl))
-       {
+        if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
+        {
             IsUpsideDown = !IsUpsideDown;
-       }
+        }
     }
 
     //function for changing the gravity

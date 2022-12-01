@@ -5,7 +5,7 @@ using UnityEngine;
 public class DealDamageOnTrigger : MonoBehaviour
 {
     /// <summary>
-    /// Can be a positive or a negative amount
+    /// Can be a positive or a negative amount (positive substructs from health, negative adds)
     /// </summary>
     public int DamageToDeal;
     private void OnTriggerEnter2D(Collider2D collision)

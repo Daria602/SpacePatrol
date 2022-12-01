@@ -8,6 +8,7 @@ public class DamageReceiver : MonoBehaviour
 {
     [SerializeField]
     protected int maxHP;
+
     /// <summary>
     /// Check this if you want to destroy the gameobject when the hp reaches 0
     /// </summary>
@@ -29,26 +30,23 @@ public class DamageReceiver : MonoBehaviour
 
     private float _protectionTimer;
 
+    protected int _currentHP;
+
     public int CurrentHP
     {
         get => _currentHP;
 
     }
 
-    protected int _currentHP;
-
     protected void Awake()
     {
         _currentHP = maxHP;
         SetupHearts();
-
-
     }
     private void SetupHearts()
     {
         if (HeartsHolder == null || HeartPrefab == null) return;
         HeartPrefab.gameObject.SetActive(false);
-        //Cleanup
         for (int i = 1; i < HeartsHolder.childCount; i++)
         {
             Destroy(HeartsHolder.GetChild(i).gameObject);
@@ -62,10 +60,13 @@ public class DamageReceiver : MonoBehaviour
 
     public void Update()
     {
+        // For debug
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
             TakeDamage(+1);
         if (Input.GetKeyDown(KeyCode.CapsLock))
             TakeDamage(-1);
+        */
 
         if(_protectionTimer>=0)
         {
@@ -73,20 +74,22 @@ public class DamageReceiver : MonoBehaviour
         }
 
     }
+
+    // To take a heart, the damage is pozitive, to add a heart, the damage is negative.
     public void TakeDamage(int damage)
     {
         //Do not take damage if we just took
-        if (damage<0)
+        if (damage>0)
         {
             if (_protectionTimer > 0) return;
             _protectionTimer = damageProtectionTime;
         }
-        _currentHP += damage;
+        _currentHP -= damage;
         _currentHP = Mathf.Clamp(_currentHP, 0, maxHP);
 
         if(HeartsHolder!=null)
         {
-            for(int i=1;i<HeartsHolder.childCount;i++)
+            for(int i = 1; i < HeartsHolder.childCount; i++)
             {
                 HeartsHolder.GetChild(i).gameObject.SetActive(i <= _currentHP);
             }
