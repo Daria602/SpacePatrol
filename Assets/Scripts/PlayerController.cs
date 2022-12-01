@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJumping", true);
 
         //For debug 
-        ///if u press tab it will change the gravity
+        ///if you press RightControl it will change the gravity
         if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
         {
             IsUpsideDown = !IsUpsideDown;
