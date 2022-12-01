@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class PlayerTwoController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    public enum PlayerNumber
+    {
+        PlayerOne=0,
+        PlayerTwo=1,
+    }
+
     public Animator animator;
+    public PlayerNumber playerNumber;
 
     private Rigidbody2D _rigidbody;
+    private DamageReceiver _damageReceiver;
     [SerializeField] private float runningSpeed;
     [SerializeField] private float jumpingSpeed;
     [SerializeField] private float groundDistance;
@@ -21,43 +29,73 @@ public class PlayerTwoController : MonoBehaviour
     private bool _isUpsideDown = false;
     RaycastHit2D hit;
 
-    private void Awake()
+    private void Awake() 
     {
         // grab references
         _rigidbody = GetComponent<Rigidbody2D>();
         _facingRight = Mathf.Sign(transform.localScale.x) > 0 ? true : false;
-        _isUpsideDown = Mathf.Sign(transform.localScale.y) < 0 ? true : false;
+        _isUpsideDown= Mathf.Sign(transform.localScale.y) < 0 ? true : false;
+        _damageReceiver = GetComponent<DamageReceiver>();
+
+        if(_damageReceiver!=null)
+        {
+            _damageReceiver.OnTakeDamage += OnDamageTaken;
+            _damageReceiver.OnDead += OnDead;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+   
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal_Two");
-        bool shouldJump = Input.GetButtonDown("Jump_Two");
+        float horizontalInput = 0;
+        bool shouldJump = false;
+
+        switch (playerNumber)
+        {
+            case PlayerNumber.PlayerOne:
+                 horizontalInput = Input.GetAxis("Horizontal_One");
+                 shouldJump = Input.GetButtonDown("Jump_One");
+                break;
+
+            case PlayerNumber.PlayerTwo:
+                horizontalInput = Input.GetAxis("Horizontal_Two");
+                shouldJump = Input.GetButtonDown("Jump_Two");
+                break;
+        }
+
 
         // direction going
         _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, _rigidbody.velocity.y);
-        animator.SetBool("isRunning", (_rigidbody.velocity.x == 0) ? false : true);
+           
+        animator.SetBool("isRunning", horizontalInput!=0);
 
-        FacingRight = horizontalInput >= 0 ? true : false;
 
-        hit = Physics2D.Raycast(transform.position, Vector2.down * (IsUpsideDown ? -1 : 1), groundDistance, groudMask);
+        FacingRight = horizontalInput >= 0;
+
+        hit = Physics2D.Raycast(transform.position, Vector2.down*(IsUpsideDown ? -1 : 1), groundDistance, groudMask);
         _isGrounded = hit.collider != null;
-        Debug.Log(hit.collider);
 
-        if (shouldJump && _isGrounded)
-            Jump();
+       if (shouldJump && _isGrounded)
+        Jump();
 
+       //this is bad because you can be in air but not jumping. use a trigger on jump instead.
         if (_isGrounded)
             animator.SetBool("isJumping", false);
         else
             animator.SetBool("isJumping", true);
+
+        //For debug 
+        ///if u press tab it will change the gravity
+        if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
+        {
+            IsUpsideDown = !IsUpsideDown;
+        }
     }
 
     //function for changing the gravity
@@ -88,14 +126,23 @@ public class PlayerTwoController : MonoBehaviour
 
     private void Jump()
     {
+        animator.SetBool("isJumping", true);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpingSpeed * (IsUpsideDown ? -1 : 1));
     }
 
-    /*
+    private void OnDamageTaken(int obj)
+    {
+
+    }
+    private void OnDead()
+    {
+        //this is called when the hp reaches 0
+    }
+    
     private void OnDrawGizmosSelected()
     {
         //for debug
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundDistance, transform.position.z));
     }
-    */
+    
 }
