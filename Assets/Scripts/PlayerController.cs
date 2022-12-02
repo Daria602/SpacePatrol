@@ -132,7 +132,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDamageTaken(int obj)
     {
-
+        // make animation of taking damage
+        // ...
+        // teleport to the last checkpoint
     }
     private void OnDead()
     {
