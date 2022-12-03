@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum EnemyState
+    {
+        Idle = 1,
+        SeesPlayer = 2,
+        AttacksPlayer = 3
+    }
+
     [SerializeField]
     private float speed;
 
@@ -13,6 +20,10 @@ public class EnemyController : MonoBehaviour
     private int positionIndex = 0;
     private bool _isFacingRight = false;
 
+    private EnemyState _currentEnemyState = EnemyState.Idle;
+
+    public Transform playerOne;
+    public Transform playerTwo;
     public bool IsFacingRight
     {
         get => _isFacingRight;
@@ -24,7 +35,33 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public EnemyState CurrentEnemyState
+    {
+        get => _currentEnemyState;
+        set
+        {
+            if (value == _currentEnemyState) return;
+            _currentEnemyState = value;
+        }
+    }
+
     void Update()
+    {
+        switch (_currentEnemyState)
+        {
+            case EnemyState.Idle:
+                IdleMovement();
+                break;
+            case EnemyState.SeesPlayer:
+                MoveToPlayer();
+                break;
+            case EnemyState.AttacksPlayer:
+                AttackPlayer();
+                break;
+        }
+    }
+
+    private void IdleMovement()
     {
         IsFacingRight = transform.position.x < positions[positionIndex].x;
 
@@ -40,5 +77,20 @@ public class EnemyController : MonoBehaviour
                 positionIndex++;
             }
         }
+
+        // if sees player
+        // CurrentEnemyState = EnemyState.SeesPlayer;
+    }
+
+    private void MoveToPlayer()
+    {
+        // if close enough to player, CurrentEnemyState = EnemyState.AttacksPlayer; return;
+        // else move to player
+    }
+
+    private void AttackPlayer()
+    {
+        // if player is too far CurrentEnemyState = EnemyState.Idle; return;
+        // else attack
     }
 }

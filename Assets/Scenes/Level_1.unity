@@ -14421,6 +14421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyDroid2
       objectReference: {fileID: 0}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 712918751436627229, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
       propertyPath: m_RootOrder
       value: 9
