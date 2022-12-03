@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
         MoveTowardsPlayer = 2,
         AttacksPlayer = 3
     }
+    public bool canFly;
     // Idle speed of the enemy
     [SerializeField] private float speed;
 
@@ -24,12 +25,15 @@ public class EnemyController : MonoBehaviour
     public Transform playerTwo;
     public float playerVisibleRange;
     public float attackRange;
+   
 
     private int positionIndex = 0;
     private Transform _playerToAttack;
     private bool _isFacingRight = false;
     private EnemyState _currentEnemyState = EnemyState.Idle;
-    
+
+    private Animator animator;
+
 
     public Transform PlayerToAttack
     {
@@ -60,6 +64,11 @@ public class EnemyController : MonoBehaviour
             if (value == _currentEnemyState) return;
             _currentEnemyState = value;
         }
+    }
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -109,16 +118,28 @@ public class EnemyController : MonoBehaviour
         float distance = Vector3.Distance(PlayerToAttack.position, transform.position);
         if (distance <= attackRange)
         {
+            animator.SetBool("closeForAttack", true);
             CurrentEnemyState = EnemyState.AttacksPlayer;
         }
         else if (distance > playerVisibleRange)
         {
+            animator.SetBool("closeForAttack", false);
             CurrentEnemyState = EnemyState.Idle;
         }
         else
         {
             IsFacingRight = transform.position.x < PlayerToAttack.position.x;
-            transform.position = Vector3.MoveTowards(transform.position, PlayerToAttack.position, Time.deltaTime * (speed + speedIncrease));
+
+            Vector3 positionToMove;
+            if (!canFly)
+            {
+                positionToMove = new Vector3(PlayerToAttack.position.x, transform.position.y);
+            } 
+            else
+            {
+                positionToMove = PlayerToAttack.position;
+            }
+            transform.position = Vector3.MoveTowards(transform.position, positionToMove, Time.deltaTime * (speed + speedIncrease));
         }
     }
 
@@ -128,12 +149,15 @@ public class EnemyController : MonoBehaviour
         // else if player is close, but not close enought for the attack, move towards the player
         // else attack
         float distance = Vector3.Distance(PlayerToAttack.position, transform.position);
+        IsFacingRight = transform.position.x < PlayerToAttack.position.x;
         if (distance > playerVisibleRange)
         {
+            animator.SetBool("closeForAttack", false);
             CurrentEnemyState = EnemyState.Idle;
         }
         else if (distance > attackRange && distance <= playerVisibleRange)
         {
+            animator.SetBool("closeForAttack", false);
             CurrentEnemyState = EnemyState.MoveTowardsPlayer;
         }
         else

@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &712918751436627228
 SpriteRenderer:
@@ -147,10 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849822eba0340c84fba756856fe39887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  positions:
-  - {x: 7.93, y: -2.92, z: 0}
-  - {x: 11.85, y: -2.92, z: 0}
+  speed: 1
+  speedIncrease: 1
+  positions: []
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
+  playerVisibleRange: 0
+  attackRange: 0
 --- !u!95 &712918751436627225
 Animator:
   serializedVersion: 4
