@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05a6ce2cc3295904ab0a515fd791f809
+guid: 053baf26a90d4ca47b7aab5025ea90a5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,7 +119,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: heart idle green_0
+      name: heart idle size green_0
       rect:
         serializedVersion: 2
         x: 0
@@ -133,14 +133,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2967d793f51f9ef49b8c9eb60129d91a
-      internalID: 1818435576
+      spriteID: 8e0a134b78c0f54448ab24beeb5e5396
+      internalID: -1270004635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: heart idle green_1
+      name: heart idle size green_1
       rect:
         serializedVersion: 2
         x: 32
@@ -154,14 +154,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d61e27f95d5bd0c44b76812291db1197
-      internalID: 323131297
+      spriteID: e5eba705b65bf03428c115018789505e
+      internalID: -1966918473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: heart idle green_2
+      name: heart idle size green_2
       rect:
         serializedVersion: 2
         x: 64
@@ -175,14 +175,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79cf2c29cc822a64fb8c64c3a1bd5ba2
-      internalID: 1970011054
+      spriteID: b68962c76dc5029429a8c1666ec7bbcc
+      internalID: 1873534701
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: heart idle green_3
+      name: heart idle size green_3
       rect:
         serializedVersion: 2
         x: 96
@@ -196,14 +196,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a827cc4a8cbcae249ba2eaccdeab338b
-      internalID: -1429002798
+      spriteID: 334fb664f08f9ea4d93d6789428bc4e3
+      internalID: -909032763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: heart idle green_4
+      name: heart idle size green_4
       rect:
         serializedVersion: 2
         x: 128
@@ -217,8 +217,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f7b0083c02333545b3d812d6944931b
-      internalID: 796371827
+      spriteID: 1cda6a9a5629af34cae9d5cf41d256d2
+      internalID: 747169088
       vertices: []
       indices: 
       edges: []
@@ -234,11 +234,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      heart idle green_1: 323131297
-      heart idle green_2: 1970011054
-      heart idle green_0: 1818435576
-      heart idle green_3: -1429002798
-      heart idle green_4: 796371827
+      heart idle size green_1: -1966918473
+      heart idle size green_2: 1873534701
+      heart idle size green_4: 747169088
+      heart idle size green_0: -1270004635
+      heart idle size green_3: -909032763
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

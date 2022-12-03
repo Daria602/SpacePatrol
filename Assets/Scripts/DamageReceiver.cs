@@ -6,6 +6,7 @@ using Unity.Mathematics;
 
 public class DamageReceiver : MonoBehaviour
 {
+
     [SerializeField]
     protected int maxHP;
 
@@ -32,9 +33,14 @@ public class DamageReceiver : MonoBehaviour
 
     protected int _currentHP;
 
-    public int CurrentHP
+    public int CurrentHP()
     {
-        get => _currentHP;
+        return _currentHP;
+
+    }
+    public int getMaxHP()
+    {
+        return maxHP;
 
     }
 
@@ -61,12 +67,12 @@ public class DamageReceiver : MonoBehaviour
     public void Update()
     {
         // For debug
-        /*
+        
         if (Input.GetKeyDown(KeyCode.Tab))
             TakeDamage(+1);
         if (Input.GetKeyDown(KeyCode.CapsLock))
             TakeDamage(-1);
-        */
+        
 
         if(_protectionTimer>=0)
         {
@@ -89,10 +95,20 @@ public class DamageReceiver : MonoBehaviour
 
         if(HeartsHolder!=null)
         {
-            for(int i = 1; i < HeartsHolder.childCount; i++)
+
+            for (int i = 1; i < HeartsHolder.childCount; i++)
             {
-                HeartsHolder.GetChild(i).gameObject.SetActive(i <= _currentHP);
+                bool isActive = i <= _currentHP;
+
+                if (!HeartsHolder.GetChild(i).gameObject.activeSelf && isActive)
+                {
+                    HeartsHolder.GetChild(i).gameObject.SetActive(true);
+                }
+
+                HeartsHolder.GetChild(i).GetComponent<Animator>().SetBool("isDestroyed", !isActive);
             }
+            
+
         }
         
         if(_currentHP<=0)
@@ -105,4 +121,6 @@ public class DamageReceiver : MonoBehaviour
         }
         OnTakeDamage?.Invoke(damage);
     }
+
+    
 }
