@@ -14425,6 +14425,26 @@ PrefabInstance:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: playerOne
+      value: 
+      objectReference: {fileID: 1251845938}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: playerTwo
+      value: 
+      objectReference: {fileID: 675533764}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: speedIncrease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 712918751436627224, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
+      propertyPath: playerVisibleRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 712918751436627229, guid: 91a92a669230a269099fa4f5a49f3b9e, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -14590,6 +14610,10 @@ PrefabInstance:
     - target: {fileID: 4260293370835487385, guid: 2e228cdf3ceca9d25b2e46ab5e2bd23f, type: 3}
       propertyPath: m_Name
       value: EnemyDroid1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260293370835487385, guid: 2e228cdf3ceca9d25b2e46ab5e2bd23f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -14767,6 +14791,10 @@ PrefabInstance:
     - target: {fileID: 9196699732908429729, guid: d33730c5b191ab94e906f481e21f52b7, type: 3}
       propertyPath: m_Name
       value: EnemyDroid3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196699732908429729, guid: d33730c5b191ab94e906f481e21f52b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9196699732908429741, guid: d33730c5b191ab94e906f481e21f52b7, type: 3}
       propertyPath: m_RootOrder
