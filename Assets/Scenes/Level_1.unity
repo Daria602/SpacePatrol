@@ -2744,8 +2744,6 @@ CompositeCollider2D:
       - {x: -2.9062393, y: -2.53125}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 995620530}
 --- !u!50 &995620535
 Rigidbody2D:
   serializedVersion: 4
@@ -2783,7 +2781,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
 --- !u!1 &1045008267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,6 +3035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -3173,7 +3171,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3261,6 +3258,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1802913265 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8720902405060472184, guid: cf93fddb7e36436429074ea4b8839132, type: 3}
+  m_PrefabInstance: {fileID: 8720902404225377749}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1858149435
 GameObject:
   m_ObjectHideFlags: 0
@@ -3391,6 +3393,7 @@ GameObject:
   - component: {fileID: 2132350329}
   - component: {fileID: 2132350331}
   - component: {fileID: 2132350330}
+  - component: {fileID: 2132350332}
   m_Layer: 0
   m_Name: HealthPrefab
   m_TagString: Untagged
@@ -3456,12 +3459,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132350328}
   m_CullTransparentMesh: 1
+--- !u!95 &2132350332
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132350328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e5d40b6c245ba4d46b16c77e8bfa3b46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &845499248226670365
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 164308433770832013, guid: 60f0802445d6fdd4cb6940bdec0d32d5, type: 3}
@@ -3513,14 +3535,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f0802445d6fdd4cb6940bdec0d32d5, type: 3}
 --- !u!1001 &6960331534267542029
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6960331535278888032, guid: 8eb490980f438b0419776dec57d58426, type: 3}
@@ -3580,16 +3600,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eb490980f438b0419776dec57d58426, type: 3}
 --- !u!1001 &8720902404225377749
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8720902405060472161, guid: cf93fddb7e36436429074ea4b8839132, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2132350332}
     - target: {fileID: 8720902405060472161, guid: cf93fddb7e36436429074ea4b8839132, type: 3}
       propertyPath: HeartPrefab
       value: 
@@ -3598,6 +3620,10 @@ PrefabInstance:
       propertyPath: HeartsHolder
       value: 
       objectReference: {fileID: 491916690}
+    - target: {fileID: 8720902405060472166, guid: cf93fddb7e36436429074ea4b8839132, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1802913265}
     - target: {fileID: 8720902405060472167, guid: cf93fddb7e36436429074ea4b8839132, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3647,5 +3673,4 @@ PrefabInstance:
       value: PlayerTwo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: cf93fddb7e36436429074ea4b8839132, type: 3}

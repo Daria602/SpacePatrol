@@ -6,6 +6,8 @@ using Unity.Mathematics;
 
 public class DamageReceiver : MonoBehaviour
 {
+    public Animator animator;
+
     [SerializeField]
     protected int maxHP;
 
@@ -91,7 +93,10 @@ public class DamageReceiver : MonoBehaviour
         {
             for(int i = 1; i < HeartsHolder.childCount; i++)
             {
+                animator.SetBool("isTakingDamage", false);
                 HeartsHolder.GetChild(i).gameObject.SetActive(i <= _currentHP);
+                animator.SetBool("isTakingDamage", true);
+                //HeartsHolder.GetChild(i).
             }
         }
         
