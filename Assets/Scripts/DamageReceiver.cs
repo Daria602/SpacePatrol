@@ -68,12 +68,11 @@ public class DamageReceiver : MonoBehaviour
     {
         // For debug
         
-        if (Input.GetKeyDown(KeyCode.Tab))
-            TakeDamage(+1);
-        if (Input.GetKeyDown(KeyCode.CapsLock))
-            TakeDamage(-1);
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //    TakeDamage(+1);
+        //if (Input.GetKeyDown(KeyCode.CapsLock))
+        //    TakeDamage(-1);
         
-
         if(_protectionTimer>=0)
         {
             _protectionTimer -= Time.deltaTime;
