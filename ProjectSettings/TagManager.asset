@@ -13,8 +13,8 @@ TagManager:
   - UI
   - groundMask
   - Players
-  - 
-  - 
+  - Enemies
+  - LeftRightLimit
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Platforms
     uniqueID: 2265608039
+    locked: 0
+  - name: Characters
+    uniqueID: 3787338581
     locked: 0
