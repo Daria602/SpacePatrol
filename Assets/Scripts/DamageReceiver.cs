@@ -81,15 +81,20 @@ public class DamageReceiver : MonoBehaviour
     }
 
     // To take a heart, the damage is pozitive, to add a heart, the damage is negative.
-    public void TakeDamage(int damage)
+    //Note: Positive to decrease hp and negative to add hp is counter intuitive and confusing, lets keep it the right way
+    //Positive values increase hp, Negative values decrease hp
+    public void TakeDamage(int amount)
     {
         //Do not take damage if we just took
-        if (damage>0)
+        //Check if we are taking damage or healing
+        if (amount<0)
         {
             if (_protectionTimer > 0) return;
             _protectionTimer = damageProtectionTime;
         }
-        _currentHP -= damage;
+        //We should add the damage here not substract it, beacuse '-' and '-' = '+'
+        //and we do not want to add Hp instead of taking it 
+        _currentHP += amount;
         _currentHP = Mathf.Clamp(_currentHP, 0, maxHP);
 
         if(HeartsHolder!=null)
@@ -118,7 +123,7 @@ public class DamageReceiver : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        OnTakeDamage?.Invoke(damage);
+        OnTakeDamage?.Invoke(amount);
     }
 
     
