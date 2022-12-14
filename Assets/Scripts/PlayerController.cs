@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private bool _isUpsideDown = false;
     RaycastHit2D hit;
 
+    public Vector3 lastCheckpoint;
+    public bool shouldTP;
+
     private void Awake() 
     {
         // grab references
@@ -135,6 +138,8 @@ public class PlayerController : MonoBehaviour
         // make animation of taking damage
         // ...
         // teleport to the last checkpoint
+        if (shouldTP)
+            transform.position = lastCheckpoint;
     }
     private void OnDead()
     {
