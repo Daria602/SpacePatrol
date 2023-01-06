@@ -167,7 +167,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Attack();
+            Attack(PlayerToAttack);
         }
     }
     private Tuple<bool, Transform> isSeeingPlayer()
@@ -181,22 +181,23 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    private void Attack()
+    private void Attack(Transform playerToAttack)
     {
         timer += Time.deltaTime;
 
         if (timer > shootingRate)
         {
             timer = 0;
-            shoot();
+            shoot(playerToAttack);
         }
     }
 
-    private void shoot()
+    private void shoot(Transform playerToAttack)
     {
         GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        Vector3 direction = new Vector3(-transform.localScale.x, 0);
+        bulletShot.GetComponent<EnemyBulletController>().Setup(direction);
 
-        Vector3 direction = new Vector3(transform.localScale.x, 0);
-        bulletShot.GetComponent<EnemyBulletController>().Direction = direction;
+        
     }
 }

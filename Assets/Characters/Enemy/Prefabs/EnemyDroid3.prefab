@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2065821109275973619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6617132190340718524}
+  m_Layer: 8
+  m_Name: BulletPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6617132190340718524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065821109275973619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.297, y: -0.26, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9196699732908429741}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2491605138686909571
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2824dc99f5afc414fb85c765be4449a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageToDeal: -1
+  TeleportOnDamage: 0
+  HealthModifier: 0
 --- !u!61 &1265474032941250955
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -101,11 +133,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9196699732908429729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.5, y: -0.36, z: 0}
+  m_LocalPosition: {x: 13.42, y: -0.36, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7238949496008252499}
+  - {fileID: 6617132190340718524}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -229,8 +262,11 @@ MonoBehaviour:
   - {x: 25, y: -2, z: 0}
   playerOne: {fileID: 0}
   playerTwo: {fileID: 0}
-  playerVisibleRange: 5
-  attackRange: 3
+  playerVisibleRange: 10
+  attackRange: 5
+  bullet: {fileID: 1095257317047870482, guid: 7b0e67a7426ada54092544e9f76833e6, type: 3}
+  bulletPosition: {fileID: 6617132190340718524}
+  shootingRate: 1
 --- !u!95 &9196699732908429740
 Animator:
   serializedVersion: 4
