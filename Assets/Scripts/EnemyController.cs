@@ -34,6 +34,11 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
 
+    public GameObject bullet;
+    public Transform bulletPosition;
+    public float shootingRate;
+    private float timer;
+
 
     public Transform PlayerToAttack
     {
@@ -178,6 +183,20 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        // enemy attacks the player here
+        timer += Time.deltaTime;
+
+        if (timer > shootingRate)
+        {
+            timer = 0;
+            shoot();
+        }
+    }
+
+    private void shoot()
+    {
+        GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+
+        Vector3 direction = new Vector3(transform.localScale.x, 0);
+        bulletShot.GetComponent<EnemyBulletController>().Direction = direction;
     }
 }
