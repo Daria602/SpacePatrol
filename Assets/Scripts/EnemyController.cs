@@ -165,10 +165,6 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("closeForAttack", false);
             CurrentEnemyState = EnemyState.MoveTowardsPlayer;
         }
-        else
-        {
-            Attack(PlayerToAttack);
-        }
     }
     private Tuple<bool, Transform> isSeeingPlayer()
     {
@@ -181,18 +177,8 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    private void Attack(Transform playerToAttack)
-    {
-        timer += Time.deltaTime;
 
-        if (timer > shootingRate)
-        {
-            timer = 0;
-            shoot(playerToAttack);
-        }
-    }
-
-    private void shoot(Transform playerToAttack)
+    public void DroidShoot()
     {
         GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         Vector3 direction = new Vector3(-transform.localScale.x, 0);

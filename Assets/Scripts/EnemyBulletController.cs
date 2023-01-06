@@ -7,13 +7,20 @@ public class EnemyBulletController : MonoBehaviour
     
     public float bulletSpeed;
     private Vector3 direction;
+    RaycastHit2D hit;
+    private float playerHitDistance = 1;
 
-   
 
 
     void Update()
     {
         transform.Translate(direction * bulletSpeed * Time.deltaTime);
+
+        hit = Physics2D.Raycast(transform.position, transform.position, playerHitDistance);
+        if (hit.collider != null)
+        {
+            gameObject.GetComponent<Animator>().SetBool("hasCollided", true);
+        }
     }
 
     public void Setup(Vector3 direction)
@@ -21,9 +28,8 @@ public class EnemyBulletController : MonoBehaviour
         this.direction = direction;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void BulletDestroyed()
     {
-        Debug.Log("Got here");
         Destroy(gameObject);
     }
 

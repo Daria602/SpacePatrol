@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1698746760770752474}
   - component: {fileID: 4524979966367773793}
   - component: {fileID: 2449838659235994707}
+  - component: {fileID: 6032003505540511914}
   m_Layer: 11
   m_Name: Bullet_Droid02
   m_TagString: Untagged
@@ -148,6 +149,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &6032003505540511914
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095257317047870482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0496b84bb34286b4c96f787902e1d524, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6733055352439615443
 GameObject:
   m_ObjectHideFlags: 0
