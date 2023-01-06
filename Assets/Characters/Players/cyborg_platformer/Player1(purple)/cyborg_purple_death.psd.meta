@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a408eb29c30d885808625cc5e3d38d23
+guid: 7f46c3330e7b8984a80432af0e25d112
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -107,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Droid03Countdown_0
+      name: cyborg_purple_death_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b96e3820f51bc4f4fbb172b75b9dd384
-      internalID: -161932922
+      spriteID: 950937e1771a41244a1b96cdbaf564b9
+      internalID: -1183928515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Droid03Countdown_1
+      name: cyborg_purple_death_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 0
-        width: 48
-        height: 48
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +142,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05e5af76b560e654ba133cdcb582ce66
-      internalID: 1880477391
+      spriteID: d845aab4c0b163a4cb2cbc687e7e27d6
+      internalID: 173362654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Droid03Countdown_2
+      name: cyborg_purple_death_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86b2c9ebb58919e42b610f72ec296b5c
+      internalID: 990607951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyborg_purple_death_3
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 48
-        height: 48
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78334d63ad300ca41b4665f353972dcd
-      internalID: 1897505721
+      spriteID: 9d315972a1b5f3a4f8e1db77338272c7
+      internalID: 1482612575
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Droid03Countdown_3
+      name: cyborg_purple_death_4
       rect:
         serializedVersion: 2
-        x: 144
+        x: 128
         y: 0
-        width: 48
-        height: 48
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,8 +205,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 017d18cf7b03e184e8d5433f7a076dc6
-      internalID: -610651754
+      spriteID: 00320c4ce4edb3f46ba9acf5ea85647b
+      internalID: -1041332498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyborg_purple_death_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45605d08fc2f931498dbbbdbdd86b229
+      internalID: -1909183085
       vertices: []
       indices: 
       edges: []
@@ -201,10 +243,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Droid03Countdown_0: -161932922
-      Droid03Countdown_3: -610651754
-      Droid03Countdown_1: 1880477391
-      Droid03Countdown_2: 1897505721
+      cyborg_purple_death_2: 990607951
+      cyborg_purple_death_0: -1183928515
+      cyborg_purple_death_3: 1482612575
+      cyborg_purple_death_5: -1909183085
+      cyborg_purple_death_4: -1041332498
+      cyborg_purple_death_1: 173362654
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

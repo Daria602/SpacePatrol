@@ -18,6 +18,20 @@ public class BetweenPlayersController : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector2((playerOneTarget.position.x + playerTwoTarget.position.x) / 2, transform.position.y);
+        if (playerOneTarget == null)
+        {
+            transform.position = new Vector2(playerTwoTarget.position.x, transform.position.y);
+        } 
+        else if (playerTwoTarget == null)
+        {
+            transform.position = new Vector2(playerOneTarget.position.x, transform.position.y);
+        }
+        else if (playerOneTarget != null && playerTwoTarget != null) 
+        {
+            transform.position = new Vector2((playerOneTarget.position.x + playerTwoTarget.position.x) / 2, transform.position.y);
+        } else
+        {
+            return;
+        }
     }
 }

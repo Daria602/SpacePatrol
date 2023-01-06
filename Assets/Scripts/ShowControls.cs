@@ -19,7 +19,10 @@ public class ShowControls : MonoBehaviour
     {
         if (shouldBeShown)
         {
-            transform.position = new Vector3(player.position.x + 0.3f, player.position.y + 1.5f, player.position.z);
+            if (player != null)
+            {
+                transform.position = new Vector3(player.position.x + 0.3f, player.position.y + 1.5f, player.position.z);
+            }
 
             // if moved
             if (Input.GetAxis(playerHorizAxis) != 0 || Input.GetButtonDown(playerJumpButton))

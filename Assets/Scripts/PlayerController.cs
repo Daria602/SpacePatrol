@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDamageTaken(int obj)
     {
+        animator.SetBool("isHurt", true);
         // make animation of taking damage
         // ...
         // teleport to the last checkpoint
@@ -144,12 +145,36 @@ public class PlayerController : MonoBehaviour
     private void OnDead()
     {
         //this is called when the hp reaches 0
+        animator.SetBool("isDead", true);
+
     }
     
     private void OnDrawGizmosSelected()
     {
         //for debug
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundDistance, transform.position.z));
+    }
+
+    public void hurtAnimationPassed()
+    {
+        animator.SetBool("isHurt", false);
+    }
+
+    public void DeathAnimationPassed()
+    {
+        // Destroy both players
+        //GameObject playerOne = GameObject.FindGameObjectWithTag("PlayerOne");
+        //if (playerOne != null)
+        //{
+        //    Destroy(playerOne);
+        //}
+        //GameObject playerTwo = GameObject.FindGameObjectWithTag("PlayerTwo");
+        //if (playerTwo != null)
+        //{
+        //    Destroy(playerTwo);
+        //}
+        Destroy(gameObject);
+        FindObjectOfType<GameManager>().EndGame();
     }
     
 }

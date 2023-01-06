@@ -78,18 +78,28 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        switch (_currentEnemyState)
+        try
         {
-            case EnemyState.Idle:
-                IdleMovement();
-                break;
-            case EnemyState.MoveTowardsPlayer:
-                MoveToPlayer();
-                break;
-            case EnemyState.AttacksPlayer:
-                AttackPlayer();
-                break;
+            switch (_currentEnemyState)
+            {
+                case EnemyState.Idle:
+                    IdleMovement();
+                    break;
+                case EnemyState.MoveTowardsPlayer:
+                    MoveToPlayer();
+                    break;
+                case EnemyState.AttacksPlayer:
+                    AttackPlayer();
+                    break;
+            }
         }
+        catch (MissingReferenceException exception)
+        {
+            Debug.Log(exception);
+            CurrentEnemyState = EnemyState.Idle;
+            animator.SetBool("closeForAttack", false);
+        }
+        
     }
 
     private void IdleMovement()
@@ -150,6 +160,12 @@ public class EnemyController : MonoBehaviour
 
     private void AttackPlayer()
     {
+        if (PlayerToAttack == null)
+        {
+            animator.SetBool("closeForAttack", false);
+            CurrentEnemyState = EnemyState.Idle;
+            return;
+        }
         // if player is too far, change state to idle
         // else if player is close, but not close enought for the attack, move towards the player
         // else attack
@@ -168,12 +184,37 @@ public class EnemyController : MonoBehaviour
     }
     private Tuple<bool, Transform> isSeeingPlayer()
     {
-        if (Vector3.Distance(playerOne.position, transform.position) <= playerVisibleRange)
-            return new Tuple<bool, Transform>(true, playerOne);
-        else if (Vector3.Distance(playerTwo.position, transform.position) <= playerVisibleRange)
-            return new Tuple<bool, Transform>(true, playerTwo);
-        else
-            return new Tuple<bool, Transform>(false, null);
+        //if (playerOne == null || playerTwo == null)
+        //{
+        //    Debug.Log("Hello");
+        //    return new Tuple<bool, Transform>(false, null);
+        //}
+
+        if (playerOne != null)
+        {
+            if (Vector3.Distance(playerOne.position, transform.position) <= playerVisibleRange)
+            {
+                return new Tuple<bool, Transform>(true, playerOne);
+            }
+        }
+        else if (playerTwo != null)
+        {
+            if (Vector3.Distance(playerTwo.position, transform.position) <= playerVisibleRange)
+            {
+                return new Tuple<bool, Transform>(true, playerTwo);
+            }
+        }
+
+        return new Tuple<bool, Transform>(false, null);
+
+        //if (player)
+        
+        //if (Vector3.Distance(playerOne.position, transform.position) <= playerVisibleRange)
+        //    return new Tuple<bool, Transform>(true, playerOne);
+        //else if (Vector3.Distance(playerTwo.position, transform.position) <= playerVisibleRange)
+        //    return new Tuple<bool, Transform>(true, playerTwo);
+        //else
+        //    return new Tuple<bool, Transform>(false, null);
 
     }
 
