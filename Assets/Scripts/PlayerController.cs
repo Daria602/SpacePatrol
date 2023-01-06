@@ -162,17 +162,7 @@ public class PlayerController : MonoBehaviour
 
     public void DeathAnimationPassed()
     {
-        // Destroy both players
-        //GameObject playerOne = GameObject.FindGameObjectWithTag("PlayerOne");
-        //if (playerOne != null)
-        //{
-        //    Destroy(playerOne);
-        //}
-        //GameObject playerTwo = GameObject.FindGameObjectWithTag("PlayerTwo");
-        //if (playerTwo != null)
-        //{
-        //    Destroy(playerTwo);
-        //}
+
         Destroy(gameObject);
         FindObjectOfType<GameManager>().EndGame();
     }
