@@ -15984,8 +15984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d7766f7c45b96479a476c459c67fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneHp: 0
-  playerTwoHp: 0
   gameOverPanel: {fileID: 1262933610}
 --- !u!4 &2091672303
 Transform:

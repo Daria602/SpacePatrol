@@ -135,9 +135,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnDamageTaken(int obj)
     {
-        animator.SetBool("isHurt", true);
+        
         // make animation of taking damage
-        // ...
+        animator.SetBool("isHurt", true);
+
         // teleport to the last checkpoint
         if (shouldTP)
             transform.position = lastCheckpoint;
@@ -162,9 +163,15 @@ public class PlayerController : MonoBehaviour
 
     public void DeathAnimationPassed()
     {
-
+        if (playerNumber == PlayerNumber.PlayerOne)
+        {
+            FindObjectOfType<GameManager>().PlayerOneIsDead = true;
+        } else
+        {
+            FindObjectOfType<GameManager>().PlayerTwoIsDead = true;
+        }
         Destroy(gameObject);
-        FindObjectOfType<GameManager>().EndGame();
+        
     }
     
 }
