@@ -192,7 +192,7 @@ MonoBehaviour:
   attackRange: 3
   bullet: {fileID: 1095257317047870482, guid: fe0334de9ef4dd24d9e4eefb38d74b4d, type: 3}
   bulletPosition: {fileID: 8396497961731234299}
-  shootingRate: 0
+  shootingRate: 3
 --- !u!95 &712918751436627225
 Animator:
   serializedVersion: 4
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportOnDamage: 0
-  HealthModifier: 0
+  HealthModifier: -1
 --- !u!61 &1095742786947447409
 BoxCollider2D:
   m_ObjectHideFlags: 0

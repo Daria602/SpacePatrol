@@ -6,14 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerNumber
-    {
-        PlayerOne=0,
-        PlayerTwo=1,
-    }
 
     public Animator animator;
-    public PlayerNumber playerNumber;
 
     private Rigidbody2D _rigidbody;
     private DamageReceiver _damageReceiver;
@@ -31,6 +25,11 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 lastCheckpoint;
     public bool shouldTP;
+
+    private bool doubleJump;
+
+    bool isTouchingFront;
+    public Transform frontCheck;
 
     private void Awake() 
     {
@@ -58,19 +57,10 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = 0;
         bool shouldJump = false;
+        horizontalInput = Input.GetAxis("Horizontal_One");
+        shouldJump = Input.GetButtonDown("Jump_One");
 
-        switch (playerNumber)
-        {
-            case PlayerNumber.PlayerOne:
-                 horizontalInput = Input.GetAxis("Horizontal_One");
-                 shouldJump = Input.GetButtonDown("Jump_One");
-                break;
-
-            case PlayerNumber.PlayerTwo:
-                horizontalInput = Input.GetAxis("Horizontal_Two");
-                shouldJump = Input.GetButtonDown("Jump_Two");
-                break;
-        }
+        
 
 
         // direction going
@@ -84,8 +74,23 @@ public class PlayerController : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, Vector2.down*(IsUpsideDown ? -1 : 1), groundDistance, groudMask);
         _isGrounded = hit.collider != null;
 
-       if (shouldJump && _isGrounded)
-        Jump();
+
+       if(_isGrounded && !Input.GetButton("Jump_One"))
+       {
+            doubleJump = false;
+       }
+
+       if (shouldJump)
+       {
+            if (_isGrounded || doubleJump)
+            {
+                Jump();
+                doubleJump = !doubleJump;
+            }
+       }
+
+
+        
 
        //this is bad because you can be in air but not jumping. use a trigger on jump instead.
         if (_isGrounded)
@@ -95,10 +100,10 @@ public class PlayerController : MonoBehaviour
 
         //For debug 
         ///if you press RightControl it will change the gravity
-        if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
-        {
-            IsUpsideDown = !IsUpsideDown;
-        }
+        //if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
+        //{
+        //    IsUpsideDown = !IsUpsideDown;
+        //}
     }
 
     //function for changing the gravity
@@ -163,13 +168,7 @@ public class PlayerController : MonoBehaviour
 
     public void DeathAnimationPassed()
     {
-        if (playerNumber == PlayerNumber.PlayerOne)
-        {
-            FindObjectOfType<GameManager>().PlayerOneIsDead = true;
-        } else
-        {
-            FindObjectOfType<GameManager>().PlayerTwoIsDead = true;
-        }
+        FindObjectOfType<GameManager>().PlayerIsDead = true;
         Destroy(gameObject);
         
     }

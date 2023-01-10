@@ -6,22 +6,33 @@ public class PickupController : MonoBehaviour
 {
     public enum PickupType
     {
-        Generic = 0,
+        SmallValue = 10,
+        BigValue = 100,
         Medkit = 1
     }
 
     [SerializeField] public PickupType pickupType;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.SetActive(false);
-        switch (pickupType)
+        if (collision.gameObject.name == "Player")
         {
-            case PickupType.Generic:
-                // do something with generic
-                break;
-            case PickupType.Medkit:
-                // do something with medkit
-                break;
+            switch (pickupType)
+            {
+                case PickupType.SmallValue:
+                    // do something with generic
+                    FindObjectOfType<GameManager>().AddToScore((int)PickupType.SmallValue);
+                    break;
+                case PickupType.BigValue:
+                    // do something with generic
+                    FindObjectOfType<GameManager>().AddToScore((int)PickupType.BigValue);
+                    break;
+                case PickupType.Medkit:
+                    // do something with medkit
+                    break;
+            }
+
+            gameObject.SetActive(false);
         }
+        
     }
 }

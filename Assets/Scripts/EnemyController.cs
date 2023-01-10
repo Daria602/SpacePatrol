@@ -21,8 +21,7 @@ public class EnemyController : MonoBehaviour
     // Positions to move to in Idle state
     [SerializeField] private Vector3[] positions;
 
-    public Transform playerOne;
-    public Transform playerTwo;
+    public Transform player;
     public float playerVisibleRange;
     public float attackRange;
    
@@ -184,37 +183,17 @@ public class EnemyController : MonoBehaviour
     }
     private Tuple<bool, Transform> isSeeingPlayer()
     {
-        //if (playerOne == null || playerTwo == null)
-        //{
-        //    Debug.Log("Hello");
-        //    return new Tuple<bool, Transform>(false, null);
-        //}
+        
 
-        if (playerOne != null)
+        if (player != null)
         {
-            if (Vector3.Distance(playerOne.position, transform.position) <= playerVisibleRange)
+            if (Vector3.Distance(player.position, transform.position) <= playerVisibleRange)
             {
-                return new Tuple<bool, Transform>(true, playerOne);
-            }
-        }
-        else if (playerTwo != null)
-        {
-            if (Vector3.Distance(playerTwo.position, transform.position) <= playerVisibleRange)
-            {
-                return new Tuple<bool, Transform>(true, playerTwo);
+                return new Tuple<bool, Transform>(true, player);
             }
         }
 
         return new Tuple<bool, Transform>(false, null);
-
-        //if (player)
-        
-        //if (Vector3.Distance(playerOne.position, transform.position) <= playerVisibleRange)
-        //    return new Tuple<bool, Transform>(true, playerOne);
-        //else if (Vector3.Distance(playerTwo.position, transform.position) <= playerVisibleRange)
-        //    return new Tuple<bool, Transform>(true, playerTwo);
-        //else
-        //    return new Tuple<bool, Transform>(false, null);
 
     }
 
@@ -226,5 +205,10 @@ public class EnemyController : MonoBehaviour
         bulletShot.GetComponent<EnemyBulletController>().Setup(direction);
 
         
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
     }
 }

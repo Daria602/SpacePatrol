@@ -3,30 +3,26 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    private bool _playerOneIsDead = false;
-    private bool _playerTwoIsDead = false;
+    private bool _playerIsDead = false;
+
     public int playerOneHp;
     public int playerTwoHp;
+
+    public int score;
 
     public GameObject gameOverPanel;
 
 
-    public bool PlayerOneIsDead
+    public bool PlayerIsDead
     {
-        get { return _playerOneIsDead; }
-        set { _playerOneIsDead = value; }
+        get { return _playerIsDead; }
+        set { _playerIsDead = value; }
     }
 
-    public bool PlayerTwoIsDead
-    {
-        get { return _playerTwoIsDead; }
-        set { _playerTwoIsDead = value; }
-    }
 
     private void Awake()
     {
-        //playerOneHp = PlayerPrefs.GetInt("playerOneHp");
-        //playerTwoHp = PlayerPrefs.GetInt("playerTwoHp");
+        PlayerPrefs.GetInt("score");
     }
     private void Start()
     {
@@ -35,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (_playerOneIsDead && _playerTwoIsDead)
+        if (_playerIsDead)
         {
             EndGame();
         }
@@ -43,6 +39,12 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void AddToScore(int amount)
+    {
+        score += amount;
+        PlayerPrefs.SetInt("score", score);
     }
 
 }
