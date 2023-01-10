@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance;
 
     //The layers that are considered to be ground
-    [SerializeField] private LayerMask groudMask;
+    [SerializeField] private LayerMask groundMask;
 
     private bool _facingRight;
     private bool _isGrounded;
@@ -30,6 +30,12 @@ public class PlayerController : MonoBehaviour
 
     bool isTouchingFront;
     public Transform frontCheck;
+    public Transform groundCheck;
+    private bool wallSliding;
+    public float checkRadius;
+    public float wallSlidingSpeed;
+
+
 
     private void Awake() 
     {
@@ -55,26 +61,47 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = 0;
-        bool shouldJump = false;
-        horizontalInput = Input.GetAxis("Horizontal_Two");
-        shouldJump = Input.GetButtonDown("Jump");
 
         
 
+        float horizontalInput = Input.GetAxisRaw("Horizontal_Two");
+        bool shouldJump = Input.GetButtonDown("Jump");
 
-        // direction going
-        _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, _rigidbody.velocity.y);
-           
-        animator.SetBool("isRunning", horizontalInput!=0);
+        isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius*5, groundMask);
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundMask);
+        bool shouldWallSlide = isTouchingFront && !_isGrounded && horizontalInput != 0;
+
+        if (horizontalInput > 0)
+        {
+            FacingRight = true;
+        } 
+        else if (horizontalInput < 0)
+        {
+            FacingRight = false;
+        }
 
 
-        FacingRight = horizontalInput >= 0;
 
-        hit = Physics2D.Raycast(transform.position, Vector2.down*(IsUpsideDown ? -1 : 1), groundDistance, groudMask);
-        _isGrounded = hit.collider != null;
+        if (shouldWallSlide)
+        {
+            wallSliding = true;
+        } 
+        else
+        {
+            wallSliding = false;
+        }
+
+        _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, wallSliding ? Mathf.Clamp(_rigidbody.velocity.y, -wallSlidingSpeed, float.MaxValue) : _rigidbody.velocity.y);
 
 
+        bool isRunning = horizontalInput != 0 && _isGrounded && !wallSliding;
+        animator.SetBool("isRunning", isRunning);
+
+        
+
+        
+
+        // reset double jump
        if(_isGrounded && !Input.GetButton("Jump"))
        {
             doubleJump = false;
@@ -90,35 +117,15 @@ public class PlayerController : MonoBehaviour
        }
 
 
-        
-
        //this is bad because you can be in air but not jumping. use a trigger on jump instead.
         if (_isGrounded)
             animator.SetBool("isJumping", false);
         else
             animator.SetBool("isJumping", true);
 
-        //For debug 
-        ///if you press RightControl it will change the gravity
-        //if (playerNumber == PlayerNumber.PlayerOne && Input.GetKeyDown(KeyCode.RightControl))
-        //{
-        //    IsUpsideDown = !IsUpsideDown;
-        //}
+        
     }
 
-    //function for changing the gravity
-    public bool IsUpsideDown
-    {
-        get => _isUpsideDown;
-        set
-        {
-            if (value == _isUpsideDown) return;
-            _isUpsideDown = value;
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * -1, transform.localScale.z);
-            //Change the gravity scaling 
-            _rigidbody.gravityScale *= -1;
-        }
-    }
 
     //function for changing the x axis orientation
     public bool FacingRight
@@ -135,7 +142,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         animator.SetBool("isJumping", true);
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpingSpeed * (IsUpsideDown ? -1 : 1));
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpingSpeed);
     }
 
     private void OnDamageTaken(int obj)
