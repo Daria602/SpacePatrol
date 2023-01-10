@@ -15959,8 +15959,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1251845938}
-  playerHorizAxis: Horizontal_One
-  playerJumpButton: Jump_One
+  playerHorizAxis: Horizontal_Two
+  playerJumpButton: Jump
 --- !u!1 &2121882915
 GameObject:
   m_ObjectHideFlags: 0

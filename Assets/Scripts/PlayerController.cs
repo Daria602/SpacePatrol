@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = 0;
         bool shouldJump = false;
-        horizontalInput = Input.GetAxis("Horizontal_One");
-        shouldJump = Input.GetButtonDown("Jump_One");
+        horizontalInput = Input.GetAxis("Horizontal_Two");
+        shouldJump = Input.GetButtonDown("Jump");
 
         
 
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         _isGrounded = hit.collider != null;
 
 
-       if(_isGrounded && !Input.GetButton("Jump_One"))
+       if(_isGrounded && !Input.GetButton("Jump"))
        {
             doubleJump = false;
        }
