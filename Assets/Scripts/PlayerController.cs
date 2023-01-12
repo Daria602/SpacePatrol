@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    private Rigidbody2D _rigidbody;
-    private DamageReceiver _damageReceiver;
+    private Rigidbody2D rigidBody;
+    private DamageReceiver damageReceiver;
     [SerializeField] private float runningSpeed;
     [SerializeField] private float jumpingSpeed;
     [SerializeField] private float groundDistance;
@@ -18,10 +18,8 @@ public class PlayerController : MonoBehaviour
     //The layers that are considered to be ground
     [SerializeField] private LayerMask groundMask;
 
-    private bool _facingRight;
-    private bool _isGrounded;
-    private bool _isUpsideDown = false;
-    RaycastHit2D hit;
+    private bool facingRight;
+    private bool isGrounded;
 
     public Vector3 lastCheckpoint;
     public bool shouldTP;
@@ -35,106 +33,177 @@ public class PlayerController : MonoBehaviour
     public float checkRadius;
     public float wallSlidingSpeed;
 
+    private float horizontalInput;
+
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 20f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+
+    [SerializeField] private TrailRenderer trailRenderer;
+
 
 
     private void Awake() 
     {
         // grab references
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _facingRight = Mathf.Sign(transform.localScale.x) > 0 ? true : false;
-        _isUpsideDown= Mathf.Sign(transform.localScale.y) < 0 ? true : false;
-        _damageReceiver = GetComponent<DamageReceiver>();
+        rigidBody = GetComponent<Rigidbody2D>();
+        facingRight = Mathf.Sign(transform.localScale.x) > 0 ? true : false;
+        damageReceiver = GetComponent<DamageReceiver>();
 
-        if(_damageReceiver!=null)
+        if(damageReceiver!=null)
         {
-            _damageReceiver.OnTakeDamage += OnDamageTaken;
-            _damageReceiver.OnDead += OnDead;
+            damageReceiver.OnTakeDamage += OnDamageTaken;
+            damageReceiver.OnDead += OnDead;
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-   
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isDashing)
+        {
+            return;
+        }
         
+        
+        // Get the horizontal input
+        horizontalInput = Input.GetAxisRaw("Horizontal_Two");
 
-        float horizontalInput = Input.GetAxisRaw("Horizontal_Two");
+        // Check if the character is touching the wall and if they are grounded
+        isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius, groundMask);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundMask);
+
+        // Depending on horizontal input, turn the character left or right
+        Flip();
+
         bool shouldJump = Input.GetButtonDown("Jump");
-
-        isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius*5, groundMask);
-        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundMask);
-        bool shouldWallSlide = isTouchingFront && !_isGrounded && horizontalInput != 0;
-
-        if (horizontalInput > 0)
+        bool isAllowedToJump = false;
+        if (shouldJump)
         {
-            FacingRight = true;
-        } 
-        else if (horizontalInput < 0)
+            isAllowedToJump = CheckIfAllowedToJump();
+        }
+
+        if (isAllowedToJump)
         {
-            FacingRight = false;
+            animator.SetBool("isJumping", true);
+            Jump();
         }
 
 
 
-        if (shouldWallSlide)
+        if (ShouldWallSlide())
         {
             wallSliding = true;
+            animator.SetBool("isWallsliding", true);
+            
         } 
         else
         {
             wallSliding = false;
+            animator.SetBool("isWallsliding", false);
         }
 
-        _rigidbody.velocity = new Vector2(horizontalInput * runningSpeed, wallSliding ? Mathf.Clamp(_rigidbody.velocity.y, -wallSlidingSpeed, float.MaxValue) : _rigidbody.velocity.y);
+        rigidBody.velocity = new Vector2(horizontalInput * runningSpeed, wallSliding ? Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue) : rigidBody.velocity.y);
 
+        animator.SetBool("isRunning", ShouldBeRunning());
 
-        bool isRunning = horizontalInput != 0 && _isGrounded && !wallSliding;
-        animator.SetBool("isRunning", isRunning);
+        // this is bad because you can be in air but not jumping. use a trigger on jump instead.
+        //if (isGrounded)
+        //    animator.SetBool("isJumping", false);
+        //else
+        //    animator.SetBool("isJumping", true);
 
-        
-
-        
-
-        // reset double jump
-       if(_isGrounded && !Input.GetButton("Jump"))
-       {
-            doubleJump = false;
-       }
-
-       if (shouldJump)
-       {
-            if (_isGrounded || doubleJump)
-            {
-                Jump();
-                doubleJump = !doubleJump;
-            }
-       }
-
-
-       //this is bad because you can be in air but not jumping. use a trigger on jump instead.
-        if (_isGrounded)
+        if ((rigidBody.velocity.y > -0.1 && rigidBody.velocity.y < 0.1) || wallSliding)
+        {
             animator.SetBool("isJumping", false);
-        else
-            animator.SetBool("isJumping", true);
+        }
 
-        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            //Debug.Log("Got here");
+            StartCoroutine(Dash());
+        }
+
+    }
+
+    private IEnumerator Dash()
+    {
+        if (Physics2D.OverlapCircle(frontCheck.position, checkRadius, groundMask))
+        {
+            Debug.Log("cONDITION WAS MET");
+            yield break;
+        }
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigidBody.gravityScale;
+        rigidBody.gravityScale = 0f;
+        rigidBody.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        Debug.Log(rigidBody.velocity);
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        trailRenderer.emitting = false;
+        rigidBody.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
+    private void Flip()
+    {
+        if (horizontalInput > 0)
+        {
+            FacingRight = true;
+        }
+        else if (horizontalInput < 0)
+        {
+            FacingRight = false;
+        }
+    }
+
+    private bool CheckIfAllowedToJump()
+    {
+        if (isGrounded)
+        {
+            doubleJump = true;
+            return true;
+        }
+        if (isTouchingFront)
+        {
+            doubleJump = true;
+            return true;
+        }
+        // check if allowed double jump while not touching the front and while not grounded
+        if (doubleJump)
+        {
+            doubleJump = false;
+            return true;
+        }
+        return false;
+    }
+
+    private bool ShouldWallSlide()
+    {
+        return isTouchingFront && !isGrounded && horizontalInput != 0;
+    }
+
+    private bool ShouldBeRunning()
+    {
+        return horizontalInput != 0 && isGrounded && !wallSliding;
     }
 
 
     //function for changing the x axis orientation
     public bool FacingRight
     {
-        get => _facingRight;
+        get => facingRight;
         set
         {
-            if (value == _facingRight) return;
-            _facingRight = value;
+            if (value == facingRight) return;
+            facingRight = value;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
@@ -142,7 +211,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         animator.SetBool("isJumping", true);
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpingSpeed);
+        rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
     }
 
     private void OnDamageTaken(int obj)
@@ -162,11 +231,6 @@ public class PlayerController : MonoBehaviour
 
     }
     
-    private void OnDrawGizmosSelected()
-    {
-        //for debug
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundDistance, transform.position.z));
-    }
 
     public void hurtAnimationPassed()
     {
