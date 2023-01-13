@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
 
     public Animator animator;
+    public Transform groundCheck;
+
 
     private Rigidbody2D rigidBody;
     private DamageReceiver damageReceiver;
@@ -19,30 +21,43 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private bool facingRight;
-    private bool isGrounded;
 
     public Vector3 lastCheckpoint;
     public bool shouldTP;
 
-    private bool doubleJump;
+    
 
-    bool isTouchingFront;
-    public Transform frontCheck;
-    public Transform groundCheck;
-    private bool wallSliding;
+    
+    
     public float checkRadius;
-    public float wallSlidingSpeed;
+    public float wallCheckRadius = 0.5f;
+
 
     private float horizontalInput;
 
+
+    // Dashing mechanics
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 20f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
-
     [SerializeField] private TrailRenderer trailRenderer;
 
+
+    private bool isWallSliding = false;
+    public float wallSlidingSpeed;
+    public Transform frontCheck;
+
+
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8f, 6f);
+
+    private bool doubleJump;
 
 
     private void Awake() 
@@ -70,71 +85,128 @@ public class PlayerController : MonoBehaviour
         }
         
         
-        // Get the horizontal input
         horizontalInput = Input.GetAxisRaw("Horizontal_Two");
 
-        // Check if the character is touching the wall and if they are grounded
-        isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius, groundMask);
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundMask);
+        if ((IsGrounded() || IsWalled()) && !Input.GetButton("Jump"))
+        {
+            doubleJump = false;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded() || doubleJump)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
+                doubleJump = !doubleJump;
+            }
+            
+        }
+
+        if (Input.GetButtonUp("Jump") && rigidBody.velocity.y > 0f)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, rigidBody.velocity.y * 0.5f);
+        }
 
         // Depending on horizontal input, turn the character left or right
-        Flip();
+        
+        WallSlide();
+        WallJump();
 
-        bool shouldJump = Input.GetButtonDown("Jump");
-        bool isAllowedToJump = false;
-        if (shouldJump)
+        if (!isWallJumping)
         {
-            isAllowedToJump = CheckIfAllowedToJump();
-        }
-
-        if (isAllowedToJump)
-        {
-            animator.SetBool("isJumping", true);
-            Jump();
+            Flip();
+            //Run();
+            //Jump();
         }
 
 
 
-        if (ShouldWallSlide())
+
+
+        // TODO: change the button for dash
+        if (Input.GetButtonDown("Dash") && canDash)
         {
-            wallSliding = true;
-            animator.SetBool("isWallsliding", true);
-            
-        } 
-        else
-        {
-            wallSliding = false;
-            animator.SetBool("isWallsliding", false);
-        }
-
-        rigidBody.velocity = new Vector2(horizontalInput * runningSpeed, wallSliding ? Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue) : rigidBody.velocity.y);
-
-        animator.SetBool("isRunning", ShouldBeRunning());
-
-        // this is bad because you can be in air but not jumping. use a trigger on jump instead.
-        //if (isGrounded)
-        //    animator.SetBool("isJumping", false);
-        //else
-        //    animator.SetBool("isJumping", true);
-
-        if ((rigidBody.velocity.y > -0.1 && rigidBody.velocity.y < 0.1) || wallSliding)
-        {
-            animator.SetBool("isJumping", false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-        {
-            //Debug.Log("Got here");
             StartCoroutine(Dash());
         }
 
+        
+
+    }
+
+
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            Debug.Log("Wall Jumpin");
+            isWallJumping = true;
+            rigidBody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+            if (transform.localScale.x != wallJumpingDirection)
+            {
+                FacingRight = !FacingRight;
+            }
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
+
+    private void Run()
+    {
+        if (IsGrounded() && horizontalInput != 0f)
+        {
+            rigidBody.velocity = new Vector2(horizontalInput * runningSpeed, rigidBody.velocity.y);
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundMask);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(frontCheck.position, 0.2f, groundMask); 
+    }
+
+    private void WallSlide()
+    {
+        if (IsWalled() && !IsGrounded() && horizontalInput != 0f)
+        {
+            isWallSliding = true;
+            rigidBody.velocity = new Vector2(0f, Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            rigidBody.velocity = new Vector2(horizontalInput * runningSpeed, rigidBody.velocity.y);
+            isWallSliding = false;
+        }
     }
 
     private IEnumerator Dash()
     {
         if (Physics2D.OverlapCircle(frontCheck.position, checkRadius, groundMask))
         {
-            Debug.Log("cONDITION WAS MET");
             yield break;
         }
         canDash = false;
@@ -164,36 +236,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool CheckIfAllowedToJump()
-    {
-        if (isGrounded)
-        {
-            doubleJump = true;
-            return true;
-        }
-        if (isTouchingFront)
-        {
-            doubleJump = true;
-            return true;
-        }
-        // check if allowed double jump while not touching the front and while not grounded
-        if (doubleJump)
-        {
-            doubleJump = false;
-            return true;
-        }
-        return false;
-    }
 
-    private bool ShouldWallSlide()
-    {
-        return isTouchingFront && !isGrounded && horizontalInput != 0;
-    }
-
-    private bool ShouldBeRunning()
-    {
-        return horizontalInput != 0 && isGrounded && !wallSliding;
-    }
+    
 
 
     //function for changing the x axis orientation
@@ -210,8 +254,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        animator.SetBool("isJumping", true);
-        rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
+        }
     }
 
     private void OnDamageTaken(int obj)
