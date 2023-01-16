@@ -59,6 +59,17 @@ public class PlayerController : MonoBehaviour
 
     private bool doubleJump;
 
+    //enum PlayerState
+    //{
+    //    Idle,
+    //    Running,
+    //    Jumping,
+    //    Falling,
+    //    WallSliding
+    //}
+
+    //private PlayerState currentState = PlayerState.Idle;
+
 
     private void Awake() 
     {
@@ -74,7 +85,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    private bool isJumping = false;
 
     // Update is called once per frame
     void Update()
@@ -96,40 +107,72 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded() || doubleJump)
             {
+                isJumping = true;
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
                 doubleJump = !doubleJump;
             }
             
         }
-
         if (Input.GetButtonUp("Jump") && rigidBody.velocity.y > 0f)
         {
+            
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, rigidBody.velocity.y * 0.5f);
         }
 
-        // Depending on horizontal input, turn the character left or right
+        animator.SetFloat("yVelocity", rigidBody.velocity.y);
+
         
+
+        //if (IsGrounded())
+        //{
+        //    animator.SetBool("isJumping", false);
+        //}
+
+
+
+
         WallSlide();
         WallJump();
-
-        if (!isWallJumping)
-        {
-            Flip();
-            //Run();
-            //Jump();
-        }
-
-
-
-
-
-        // TODO: change the button for dash
         if (Input.GetButtonDown("Dash") && canDash)
         {
             StartCoroutine(Dash());
         }
 
-        
+        if (!isWallJumping)
+        {
+            // Depending on horizontal input, turn the character left or right
+            Flip();
+        }
+
+        /*  ANIMATIONS  */
+        if (IsGrounded() && horizontalInput != 0)
+        {
+            setAnimation("isRunning");
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        if (!IsGrounded() && isJumping)
+        {
+            setAnimation("isJumping");
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+        }
+
+        if (isWallSliding)
+        {
+            setAnimation("isWallsliding");
+        } else
+        {
+            animator.SetBool("isWallsliding", false);
+        }
+
+
+
 
     }
 
@@ -166,6 +209,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void setAnimation(string animationBool)
+    {
+        string[] animationBools = { "isJumping", "isRunning" };
+        for (int i = 0; i < animationBools.Length; i++)
+        {
+            animator.SetBool(animationBools[i], false);
+        }
+        animator.SetBool(animationBool, true);
+    }
+
     private void StopWallJumping()
     {
         isWallJumping = false;
@@ -194,6 +247,7 @@ public class PlayerController : MonoBehaviour
         if (IsWalled() && !IsGrounded() && horizontalInput != 0f)
         {
             isWallSliding = true;
+            isJumping = false;
             rigidBody.velocity = new Vector2(0f, Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
@@ -214,7 +268,6 @@ public class PlayerController : MonoBehaviour
         float originalGravity = rigidBody.gravityScale;
         rigidBody.gravityScale = 0f;
         rigidBody.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-        Debug.Log(rigidBody.velocity);
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
