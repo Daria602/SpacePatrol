@@ -25,11 +25,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //positionBeforeAttack = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                //transform.position = new Vector3(transform.position.x + movementPositionDelay, transform.position.y, transform.position.z);
-                Debug.Log(positionBeforeAttack);
-                Debug.Log(transform.position);
-                
+                Debug.Log("Attacked");   
                 gameObject.GetComponentInChildren<Animator>().SetTrigger("attack");
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, enemiesMask);
 

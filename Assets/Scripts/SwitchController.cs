@@ -8,6 +8,7 @@ public class SwitchController : MonoBehaviour
     public Sprite deactivated;
     private bool isDeactivated = false;
     public List<GameObject> enemiesToDisable;
+    public List<GameObject> objectsToDisable;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +33,18 @@ public class SwitchController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "PlayerOne" || collision.gameObject.name == "PlayerTwo")
+        if (collision.gameObject.name == "Player")
         {
             isDeactivated = true;
 
             for (int i = 0; i < enemiesToDisable.Count; i++)
             {
                 enemiesToDisable[i].GetComponent<Animator>().SetBool("isDisabled", true);
+            }
+
+            for (int i = 0; i < objectsToDisable.Count; i++)
+            {
+                objectsToDisable[i].gameObject.SetActive(false);
             }
         }
     }

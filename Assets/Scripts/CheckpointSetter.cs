@@ -6,9 +6,10 @@ public class CheckpointSetter : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Got here");
         if (collision == null) return;
 
-        if (collision.gameObject.name == "PlayerOne" || collision.gameObject.name == "PlayerTwo")
-            collision.gameObject.GetComponent<PlayerController>().lastCheckpoint = this.gameObject.transform.localPosition;
+        if (collision.gameObject.name == "Player")
+            collision.gameObject.GetComponent<PlayerController>().lastCheckpoint = this.gameObject.transform.position;
     }
 }

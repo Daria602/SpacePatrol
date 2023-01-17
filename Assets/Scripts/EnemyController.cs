@@ -107,9 +107,9 @@ public class EnemyController : MonoBehaviour
 
     private void IdleMovement()
     {
-        IsFacingRight = transform.position.x < positions[positionIndex].x;
-        transform.position = Vector3.MoveTowards(transform.position, positions[positionIndex], Time.deltaTime * speed);
-        if (transform.position == positions[positionIndex])
+        IsFacingRight = transform.localPosition.x < positions[positionIndex].x;
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, positions[positionIndex], Time.deltaTime * speed);
+        if (transform.localPosition == positions[positionIndex])
         {
             if (positionIndex == positions.Length - 1)
             {
