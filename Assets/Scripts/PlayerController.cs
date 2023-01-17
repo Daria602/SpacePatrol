@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
-    public Animator animator;
+    private Animator animator;
     public Transform groundCheck;
 
 
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         facingRight = Mathf.Sign(transform.localScale.x) > 0 ? true : false;
         damageReceiver = GetComponent<DamageReceiver>();
+        animator = GetComponentInChildren<Animator>();
 
         if(damageReceiver!=null)
         {
@@ -254,6 +255,10 @@ public class PlayerController : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(horizontalInput * runningSpeed, rigidBody.velocity.y);
             isWallSliding = false;
+            if (!IsGrounded())
+            {
+                isJumping = true;
+            }
         }
     }
 

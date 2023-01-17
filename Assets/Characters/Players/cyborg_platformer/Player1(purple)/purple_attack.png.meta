@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e6821e869efdc04f8af968adb6a5f31
+guid: 3d259e657df236649ac48868c1785705
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,12 +107,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_0
+      name: purple_attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -121,40 +121,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5154e14c3efb830418d242ca8380d1dc
-      internalID: 775674743
+      spriteID: f106ae35b5c654147b45ca13732cef74
+      internalID: -1109520092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9dde63709a6471043a6c265bc6b05ed8
-      internalID: 1768249599
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_2
+      name: purple_attack_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -163,40 +142,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1d8928eaab693647b148b41ecad284c
-      internalID: -1101592384
+      spriteID: 460df7a539f877648bb38fe80263eb82
+      internalID: -647114713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86cfdce07c20bc04092548928037a3fc
-      internalID: 1069406655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_4
+      name: purple_attack_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -205,40 +163,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a9a260eb9dcc924b845daa10c0c7c86
-      internalID: -2016971790
+      spriteID: aa44a73707e850345b5b0bb06c9c6117
+      internalID: 713268949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d06d07336f17a6f43b3af8d8f28fb944
-      internalID: -1782635569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_6
+      name: purple_attack_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -247,40 +184,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b60278389cc2564f8c7c3898f80a2a7
-      internalID: -899503702
+      spriteID: 0ef4c00a9ac8c7648b8405b5a5825e1a
+      internalID: -1676181133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1345c4b9ad9c30b42839e6f3a9798df8
-      internalID: -545124161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_8
+      name: purple_attack_4
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -289,40 +205,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21c9cb577e9cff9409747aae487416e7
-      internalID: -19971999
+      spriteID: d1665e35cc7893a44a9e8adcd26d579c
+      internalID: -780290244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_9
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 32
-        height: 32
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e380399bb1f77f4fa6e0e6962dd7c72
-      internalID: 23210947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cyber prisoner jump cycle -Sheet_10
+      name: purple_attack_5
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -331,8 +226,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fae3a764052cc474a8f03fb4a9c6d3ed
-      internalID: 1477224675
+      spriteID: ecbf1eabcc4bf3a449cf14729b49bd16
+      internalID: 2084240919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple_attack_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 32
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6103f6ff849dc44fab0aefc98545c6f
+      internalID: 608892049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple_attack_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 32
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f26344850246ff54d892931bb43d2bcb
+      internalID: 839460009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple_attack_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 32
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcd29bd733300b9468f2ca61b7b691e5
+      internalID: -1017043451
       vertices: []
       indices: 
       edges: []
@@ -348,17 +306,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cyber prisoner jump cycle -Sheet_1: 1768249599
-      cyber prisoner jump cycle -Sheet_6: -899503702
-      cyber prisoner jump cycle -Sheet_2: -1101592384
-      cyber prisoner jump cycle -Sheet_5: -1782635569
-      cyber prisoner jump cycle -Sheet_0: 775674743
-      cyber prisoner jump cycle -Sheet_7: -545124161
-      cyber prisoner jump cycle -Sheet_3: 1069406655
-      cyber prisoner jump cycle -Sheet_9: 23210947
-      cyber prisoner jump cycle -Sheet_8: -19971999
-      cyber prisoner jump cycle -Sheet_10: 1477224675
-      cyber prisoner jump cycle -Sheet_4: -2016971790
+      purple_attack_7: 839460009
+      purple_attack_4: -780290244
+      purple_attack_0: -1109520092
+      purple_attack_5: 2084240919
+      purple_attack_8: -1017043451
+      purple_attack_1: -647114713
+      purple_attack_6: 608892049
+      purple_attack_3: -1676181133
+      purple_attack_2: 713268949
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

@@ -38,6 +38,9 @@ public class EnemyController : MonoBehaviour
     public float shootingRate;
     private float timer;
 
+    public int maxHp;
+    private int Hp;
+
 
     public Transform PlayerToAttack
     {
@@ -73,6 +76,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        Hp = maxHp;
     }
 
     void Update()
@@ -210,5 +214,15 @@ public class EnemyController : MonoBehaviour
     public void Disable()
     {
         gameObject.SetActive(false);
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        Debug.Log("Was attacked!");
+        Hp -= damageAmount;
+        if (Hp <= 0)
+        {
+            animator.SetBool("isDisabled", true);
+        }
     }
 }
