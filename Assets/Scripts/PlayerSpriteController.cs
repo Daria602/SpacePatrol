@@ -14,4 +14,9 @@ public class PlayerSpriteController : MonoBehaviour
         gameObject.GetComponentInParent<PlayerController>().DeathAnimationPassed();
 
     }
+
+    public void attackOver()
+    {
+        gameObject.GetComponentInParent<PlayerController>().AttackOver();
+    }
 }

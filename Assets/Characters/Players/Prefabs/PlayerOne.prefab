@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 6960331535278888037}
   - component: {fileID: 6960331535278888036}
   - component: {fileID: 6960331535278888033}
-  - component: {fileID: 913032860078142980}
   - component: {fileID: 6960331535278888032}
   m_Layer: 7
   m_Name: PlayerOne
@@ -332,25 +331,13 @@ MonoBehaviour:
   trailRenderer: {fileID: 0}
   wallSlidingSpeed: 5
   frontCheck: {fileID: 2381539513207241665}
---- !u!114 &913032860078142980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6960331535278888041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b3d05f8d11d08d41a45b9a7ab073f41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   startTimeBtwAttack: 0
-  attackPosition: {fileID: 191627268995164437}
-  attackRange: 0.5
+  attackPosition: {fileID: 0}
+  attackRange: 0
   enemiesMask:
     serializedVersion: 2
-    m_Bits: 256
-  damageAmount: 1
+    m_Bits: 0
+  damageAmount: 0
   movementPositionDelay: 0
 --- !u!114 &6960331535278888032
 MonoBehaviour:

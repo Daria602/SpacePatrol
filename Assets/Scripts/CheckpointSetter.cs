@@ -6,7 +6,6 @@ public class CheckpointSetter : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Got here");
         if (collision == null) return;
 
         if (collision.gameObject.name == "Player")

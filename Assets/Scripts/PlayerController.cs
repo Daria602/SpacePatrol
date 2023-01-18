@@ -155,14 +155,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
 
-        if (!IsGrounded() && isJumping)
-        {
-            setAnimation("isJumping");
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
-        }
+        
 
         if (isWallSliding)
         {
@@ -170,6 +163,18 @@ public class PlayerController : MonoBehaviour
         } else
         {
             animator.SetBool("isWallsliding", false);
+        }
+
+        Attack();
+
+        if (!IsGrounded() && isJumping && !isAttacking)
+        {
+            //Debug.Log("Got reset here");
+            setAnimation("isJumping");
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
         }
 
 
@@ -196,7 +201,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-            Debug.Log("Wall Jumpin");
+            //Debug.Log("Wall Jumpin");
             isWallJumping = true;
             rigidBody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
@@ -346,6 +351,54 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<GameManager>().PlayerIsDead = true;
         Destroy(gameObject);
         
+    }
+
+    private float timeBtwAttack;
+    public float startTimeBtwAttack;
+    public Transform attackPosition;
+    public float attackRange;
+    public LayerMask enemiesMask;
+    public int damageAmount;
+    public float movementPositionDelay;
+
+    bool isAttacking = false;
+
+    private void Attack()
+    {
+        if (timeBtwAttack <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (!IsGrounded())
+                {
+                    animator.SetBool("isJumping", false);
+                    isAttacking = true;
+                    animator.SetTrigger("jump_attack");
+                } 
+                else
+                {
+                    animator.SetTrigger("attack");
+                }
+
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, enemiesMask);
+
+                for (int i = 0; i < enemiesToDamage.Length; i++)
+                {
+                    enemiesToDamage[i].GetComponent<EnemyController>().TakeDamage(damageAmount);
+                }
+            }
+            timeBtwAttack = startTimeBtwAttack;
+        }
+        else
+        {
+            timeBtwAttack -= Time.deltaTime;
+        }
+    }
+
+
+    public void AttackOver()
+    {
+        isAttacking = false;
     }
     
 }
