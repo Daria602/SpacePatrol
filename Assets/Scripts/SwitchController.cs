@@ -9,6 +9,8 @@ public class SwitchController : MonoBehaviour
     private bool isDeactivated = false;
     public List<GameObject> enemiesToDisable;
     public List<GameObject> objectsToDisable;
+
+    [SerializeField] AudioSource deactivatedSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,8 @@ public class SwitchController : MonoBehaviour
         if (collision.gameObject.name == "Player")
         {
             isDeactivated = true;
+            deactivatedSound.Play();
+
 
             for (int i = 0; i < enemiesToDisable.Count; i++)
             {

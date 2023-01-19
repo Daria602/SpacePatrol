@@ -218,6 +218,7 @@ public class EnemyController : MonoBehaviour
 
     public void Disable()
     {
+        FindObjectOfType<GameManager>().AddToScore(50);
         gameObject.SetActive(false);
     }
 

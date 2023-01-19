@@ -7,8 +7,7 @@ public class PickupController : MonoBehaviour
     public enum PickupType
     {
         SmallValue = 10,
-        BigValue = 100,
-        Medkit = 1
+        BigValue = 100
     }
 
     [SerializeField] public PickupType pickupType;
@@ -27,10 +26,8 @@ public class PickupController : MonoBehaviour
                     break;
                 case PickupType.BigValue:
                     // do something with generic
-                    FindObjectOfType<GameManager>().AddToScore((int)PickupType.BigValue);
-                    break;
-                case PickupType.Medkit:
-                    // do something with medkit
+                    FindObjectOfType<AudioManager>().PlayBigPickup();
+                    FindObjectOfType<GameManager>().AddToScore((int)PickupType.SmallValue);
                     break;
             }
 

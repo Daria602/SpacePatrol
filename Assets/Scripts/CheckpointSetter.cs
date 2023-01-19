@@ -9,6 +9,6 @@ public class CheckpointSetter : MonoBehaviour
         if (collision == null) return;
 
         if (collision.gameObject.name == "Player")
-            collision.gameObject.GetComponent<PlayerController>().lastCheckpoint = this.gameObject.transform.position;
+            collision.gameObject.GetComponent<PlayerController>().lastCheckpoint = transform.position;
     }
 }
