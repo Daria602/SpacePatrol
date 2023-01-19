@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BackgroundController : MonoBehaviour
 {
-    public float yStart;
-    public float yDifference;
-    public float toSubstract; // used to move background 
+    private float yStart;
+    private float yDifference;
+    private bool isUp = false;
+    private bool movingWasSpeedUp = false;
 
+    [SerializeField] public float movingSpeed;
     [SerializeField] private TextMeshProUGUI continueText;
 
     private bool hasContinueTextTransitionStarted = false;
@@ -18,7 +21,6 @@ public class BackgroundController : MonoBehaviour
     {
         yStart = transform.localPosition.y;
         yDifference = 222;
-        toSubstract = 0.2f;
 
         hideContinueText();
     }
@@ -27,15 +29,24 @@ public class BackgroundController : MonoBehaviour
     void Update()
     {
         VerticalMovement();
+        if (!movingWasSpeedUp && !isUp && Input.anyKeyDown)
+        {
+            movingSpeed += 0.5f;
+            movingWasSpeedUp = true;
+        }
+        if(isUp == true && Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     private void VerticalMovement()
     {
         float yCurrent = transform.localPosition.y;
         
-        if (yCurrent - toSubstract > yStart - yDifference)
+        if (yCurrent - movingSpeed > yStart - yDifference)
         {
-            transform.localPosition = new Vector2(transform.localPosition.x, yCurrent - toSubstract);
+            transform.localPosition = new Vector2(transform.localPosition.x, yCurrent - movingSpeed);
         } else if (!hasContinueTextTransitionStarted) {
             hasContinueTextTransitionStarted = true;
             showContinueText();
@@ -52,6 +63,7 @@ public class BackgroundController : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+        isUp = true;
         yield break;
     }
 

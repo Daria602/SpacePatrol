@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GameOverScreen
+  - PlayerOne
+  - PlayerTwo
   layers:
   - Default
   - TransparentFX
@@ -11,13 +14,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - groundMask
+  - Players
+  - Enemies
+  - LeftRightLimit
+  - DamageDealer
+  - Bullets
+  - ExitDoor
   - 
   - 
   - 
@@ -40,4 +43,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackgroundPicture
+    uniqueID: 434261499
+    locked: 0
+  - name: Background
+    uniqueID: 3109211211
+    locked: 0
+  - name: Platforms
+    uniqueID: 2265608039
+    locked: 0
+  - name: Characters
+    uniqueID: 3787338581
     locked: 0
