@@ -7,8 +7,11 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/OpeningScreen.unity
-    guid: 4514d57039388974ba7c9089b0ba1e39
+    guid: 26ae2dd3c15c28f409f4b3bd01b6146c
   - enabled: 1
-    path: Assets/Scenes/Level_1.unity
-    guid: 793b2cb7fea6ac144a8c70ea875afc56
+    path: Assets/Scenes/Menu.unity
+    guid: c7b75cd845aa7ac4396a9bafff852e14
+  - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 97f87c4640fa41d4abd06a0cd98803c5
   m_configObjects: {}

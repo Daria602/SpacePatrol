@@ -16,7 +16,8 @@ public class ExitDoorController : MonoBehaviour
     {
         if (playerEntered)
         {
-            player.transform.localPosition = teleportPlayer;
+            Destroy(player);
+            FindObjectOfType<GameManager>().FinishedGame = true;
         }
     }
 

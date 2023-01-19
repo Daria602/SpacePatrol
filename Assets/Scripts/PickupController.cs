@@ -14,12 +14,15 @@ public class PickupController : MonoBehaviour
     [SerializeField] public PickupType pickupType;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        
+        if (collision.name == "Player")
         {
+            
             switch (pickupType)
             {
                 case PickupType.SmallValue:
                     // do something with generic
+                    FindObjectOfType<AudioManager>().PlayPickup();
                     FindObjectOfType<GameManager>().AddToScore((int)PickupType.SmallValue);
                     break;
                 case PickupType.BigValue:

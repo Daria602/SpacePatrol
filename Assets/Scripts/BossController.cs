@@ -24,14 +24,31 @@ public class BossController : MonoBehaviour
     Vector3 positionToFallTo;
     float flyingSpeed = 8;
     float fallingSpeed = 16;
+    private bool isFacingRight = false;
+    public Transform player;
+
+    public int maxHp;
+    private int Hp;
+
+    private float timeFromLastAttack = 0;
+
+    [SerializeField] private AudioSource shootSound;
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioSource destroyedSound;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        Hp = maxHp;
     }
 
     void Update()
     {
+        if (player == null)
+        {
+            currentState = BossState.Idle;
+        }
+        IsFacingRight = transform.position.x < player.position.x;
         switch (currentState)
         {
             case BossState.Idle:
@@ -49,7 +66,18 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private float timeFromLastAttack = 0;
+    public bool IsFacingRight
+    {
+        get => isFacingRight;
+        set
+        {
+            if (value == isFacingRight) return;
+            isFacingRight = value;
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    
 
     private void ChooseAttack()
     {
@@ -59,7 +87,7 @@ public class BossController : MonoBehaviour
         {
             // randomly choose the attack here
 
-            int randomAttackIndex = Random.Range(4, 5);
+            int randomAttackIndex = Random.Range(2, 3);
             switch (randomAttackIndex)
             {
                 case 2:
@@ -85,6 +113,18 @@ public class BossController : MonoBehaviour
     private void DoLightAttack()
     {
         animator.SetTrigger("lightAttack");
+    }
+
+    public GameObject bullet;
+    public Transform bulletPosition;
+
+    public void LightShoot()
+    {
+        shootSound.Play();
+        GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        bulletShot.transform.localScale = new Vector3(IsFacingRight ? -5 : 5, 5);
+        Vector3 direction = new Vector3(-transform.localScale.x, 0);
+        bulletShot.GetComponent<EnemyBulletController>().Setup(direction);
     }
 
     
@@ -124,21 +164,14 @@ public class BossController : MonoBehaviour
         {
             int positionIndex = Random.Range(0, fallingAttackPositions.Length);
             positionToFlyTo = fallingAttackPositions[positionIndex];
+
             startedFlying = true;
             animator.SetBool("isFlyingUp", true);
         }
         else
         {
-            //Debug.Log(positionToFlyTo);
 
             transform.position = Vector3.MoveTowards(transform.position, positionToFlyTo, Time.deltaTime * flyingSpeed);
-
-            //transform.position = positionToFlyTo;
-
-            Debug.Log("CurrentPosition");
-            Debug.Log(transform.position);
-            Debug.Log("GoalPosition");
-            Debug.Log(positionToFlyTo);
             
 
             // check if arrived at the position 
@@ -173,5 +206,40 @@ public class BossController : MonoBehaviour
     public void AttackPassed()
     {
         currentState = BossState.Idle;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision == null) return;
+
+        if (collision.gameObject.GetComponent<DamageReceiver>() is DamageReceiver damageReceiver)
+        {
+            collision.gameObject.GetComponent<PlayerController>().shouldTP = false;
+            damageReceiver.TakeDamage(-1);
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        
+        Hp -= damageAmount;
+        Debug.Log(Hp);
+        
+        if (Hp <= 0)
+        {
+            animator.SetTrigger("dead");
+            destroyedSound.Play();
+        } 
+        else
+        {
+            animator.SetTrigger("hurt");
+            hurtSound.Play();
+        }
+    }
+
+    public void DeathOver()
+    {
+        gameObject.SetActive(false);
     }
 }

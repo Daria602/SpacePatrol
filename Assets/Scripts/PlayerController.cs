@@ -59,16 +59,9 @@ public class PlayerController : MonoBehaviour
 
     private bool doubleJump;
 
-    //enum PlayerState
-    //{
-    //    Idle,
-    //    Running,
-    //    Jumping,
-    //    Falling,
-    //    WallSliding
-    //}
-
-    //private PlayerState currentState = PlayerState.Idle;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource dashSound;
+    [SerializeField] private AudioSource hurtSound;
 
 
     private void Awake() 
@@ -108,6 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded() || doubleJump)
             {
+                jumpSound.Play();
                 isJumping = true;
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingSpeed);
                 doubleJump = !doubleJump;
@@ -191,6 +185,7 @@ public class PlayerController : MonoBehaviour
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
+            
 
             CancelInvoke(nameof(StopWallJumping));
         }
@@ -202,6 +197,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
             //Debug.Log("Wall Jumpin");
+            jumpSound.Play();
             isWallJumping = true;
             rigidBody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
@@ -253,6 +249,7 @@ public class PlayerController : MonoBehaviour
         if (IsWalled() && !IsGrounded() && horizontalInput != 0f)
         {
             isWallSliding = true;
+
             isJumping = false;
             rigidBody.velocity = new Vector2(0f, Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
@@ -275,6 +272,7 @@ public class PlayerController : MonoBehaviour
         }
         canDash = false;
         isDashing = true;
+        dashSound.Play();
         float originalGravity = rigidBody.gravityScale;
         rigidBody.gravityScale = 0f;
         rigidBody.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -328,6 +326,7 @@ public class PlayerController : MonoBehaviour
         
         // make animation of taking damage
         animator.SetBool("isHurt", true);
+        hurtSound.Play();
 
         // teleport to the last checkpoint
         if (shouldTP)
@@ -384,6 +383,10 @@ public class PlayerController : MonoBehaviour
 
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
+                    if (enemiesToDamage[i].name == "Boss")
+                    {
+                        enemiesToDamage[i].GetComponent<BossController>().TakeDamage(1);
+                    }
                     enemiesToDamage[i].GetComponent<EnemyController>().TakeDamage(damageAmount);
                 }
             }

@@ -35,11 +35,15 @@ public class EnemyController : MonoBehaviour
 
     public GameObject bullet;
     public Transform bulletPosition;
-    public float shootingRate;
+    private float shootingRate;
     private float timer;
 
     public int maxHp;
     private int Hp;
+
+    [SerializeField] private AudioSource shootSound;
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioSource destroyedSound;
 
 
     public Transform PlayerToAttack
@@ -204,6 +208,7 @@ public class EnemyController : MonoBehaviour
 
     public void DroidShoot()
     {
+        shootSound.Play();
         GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         Vector3 direction = new Vector3(-transform.localScale.x, 0);
         bulletShot.GetComponent<EnemyBulletController>().Setup(direction);
@@ -219,10 +224,16 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         Debug.Log("Was attacked!");
+        
         Hp -= damageAmount;
         if (Hp <= 0)
         {
             animator.SetBool("isDisabled", true);
+            destroyedSound.Play();
+        } 
+        else
+        {
+            hurtSound.Play();
         }
     }
 }

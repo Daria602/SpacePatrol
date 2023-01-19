@@ -1,16 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     private bool _playerIsDead = false;
 
-    public int playerOneHp;
-    public int playerTwoHp;
 
     public int score;
 
-    public GameObject gameOverPanel;
+    public bool FinishedGame = false;
 
 
     public bool PlayerIsDead
@@ -26,19 +25,29 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        gameOverPanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (_playerIsDead)
+        if (_playerIsDead && !FinishedGame)
         {
-            EndGame();
+            EndGame(false);
+        }
+        else if (FinishedGame)
+        {
+            EndGame(true);
         }
     }
-    public void EndGame()
+    public void EndGame(bool finishedSuccess)
     {
-        gameOverPanel.SetActive(true);
+        if (finishedSuccess)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        } 
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        }
     }
 
     public void AddToScore(int amount)
