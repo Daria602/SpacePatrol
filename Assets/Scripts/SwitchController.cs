@@ -19,10 +19,6 @@ public class SwitchController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isDeactivated = !isDeactivated;
-        }
         if (isDeactivated)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = deactivated;

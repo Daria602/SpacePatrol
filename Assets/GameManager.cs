@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    public AudioMixer audioMixer;
     private bool _playerIsDead = false;
 
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         PlayerPrefs.GetInt("score");
+        SetPlayerMusicPrefs();
     }
     private void Start()
     {
@@ -56,4 +58,13 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("score", score);
     }
 
+    private void SetPlayerMusicPrefs()
+    {
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
+        audioMixer.SetFloat("MasterVolume", masterVolume);
+        audioMixer.SetFloat("MusicVolume", musicVolume);
+        audioMixer.SetFloat("SFXVolume", sfxVolume);
+    }
 }

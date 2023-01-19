@@ -11,7 +11,6 @@ public class BackgroundController : MonoBehaviour
     private bool isUp = false;
     private bool movingWasSpeedUp = false;
 
-    [SerializeField] public string sceneToChangeTo;
     [SerializeField] public float movingSpeed;
     [SerializeField] private TextMeshProUGUI continueText;
 
@@ -37,7 +36,7 @@ public class BackgroundController : MonoBehaviour
         }
         if(isUp == true && Input.anyKeyDown)
         {
-            SceneManager.LoadScene(sceneToChangeTo);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 

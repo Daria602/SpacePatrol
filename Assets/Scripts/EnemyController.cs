@@ -212,8 +212,6 @@ public class EnemyController : MonoBehaviour
         GameObject bulletShot = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         Vector3 direction = new Vector3(-transform.localScale.x, 0);
         bulletShot.GetComponent<EnemyBulletController>().Setup(direction);
-
-        
     }
 
     public void Disable()
